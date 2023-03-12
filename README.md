@@ -15,8 +15,8 @@ Dijkstra_Point_Robot
 ### Introduction to the Project
 
 In this project, the Dijkstra path planning algorithm was used on a point robot to help it navigate through obstacles.
-# Considering the clearance, I have calculated the final coordinates of the vertices of the obstacles.  
-# The clearance is also being considered at the walls of the field.
+### Considering the clearance, I have calculated the final coordinates of the vertices of the obstacles.  
+### The clearance is also being considered at the walls of the field.
     Hence, the allowed x-coordinates lie between 6 and 594
            and the allowed y-coordinates lie between 6 and 244
 

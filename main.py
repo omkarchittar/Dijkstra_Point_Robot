@@ -5,6 +5,7 @@ import pygame
 from heapq import heappush, heappop
 import cv2
 
+# Taking iputs from the user
 x0 = int(input("Enter the x coordinate for start node (between 6 and 594) : "))
 y0 = int(input("Enter the y coordinate for start node (between 6 and 244): "))
 x_goal = int(input("Enter the x coordinate for goal node (between 6 and 594) : "))
@@ -17,6 +18,7 @@ c = 5   #clearance
 x_current = x0
 y_current = y0
 
+# Boundary coordinates
 y_field = 250
 x_field = 600
 
@@ -239,6 +241,7 @@ def animate( explored, back_track, path):
     cv2.destroyAllWindows()
     out.release()
 
+# main body of the code
 if(boundary(start[0], start[1])):
 	if(boundary(goal[0], goal[1])):
 		if(obstacle(start[0],start[1]) == False):
