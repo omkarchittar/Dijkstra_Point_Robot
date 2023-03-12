@@ -36,7 +36,7 @@ The Optimal distance for these inputs is 183.57979999999972 <br>
 <br>
 **The gif below shows the animation**
 <br>
-dijkstra.gif
+![dijkstra](https://user-images.githubusercontent.com/71602406/224559984-e66f750e-eb21-4a50-88ea-670d9cf94d25.gif)
 <br>
 
 ### Author
