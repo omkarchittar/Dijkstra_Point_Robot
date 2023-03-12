@@ -1,9 +1,9 @@
 import numpy as np
-from heapq import heappush, heappop
-import cv2
 import math
 import time
 import pygame
+from heapq import heappush, heappop
+import cv2
 
 x0 = int(input("Enter the x coordinate for start node (between 6 and 594) : "))
 y0 = int(input("Enter the y coordinate for start node (between 6 and 244): "))
@@ -24,7 +24,7 @@ def boundary(y_current, x_current):
     return (y_current >= (1 + c) and y_current <= (y_field - c) and x_current >= (1 + c) and x_current <= (x_field - c))
 
 def obstacle(y, x):
-    # check hexagon
+    # check if the point lies inside the hexagon
     (x1, y1) = (300,45)
     (x2, y2) = (370,85)
     (x3, y3) = (370,165)
@@ -41,7 +41,7 @@ def obstacle(y, x):
     if(side1 >= 0 and side2 >= 0 and side3 >= 0 and side4 >= 0 and side5 >= 0 and side6 >= 0):
         hex = 0
 
-    # check triangle
+    # check if the point lies inside the triangle
     (x1, y1) = (455, 21)
     (x2, y2) = (515, 125)
     (x3, y3) = (455, 229)
@@ -52,7 +52,7 @@ def obstacle(y, x):
     if (side1 >= 0 and side2 >= 0 and side3 >= 0) or (side1 <= 0 and side2 <= 0 and side3 <= 0):
         tri = 0
         
-    # check rectangle2
+    # check if the point lies inside the rectangle2
     (x1, y1) = (95,145)
     (x2, y2) = (155,145)
     (x3, y3) = (155, 250)
@@ -65,7 +65,7 @@ def obstacle(y, x):
     if(side1 >= 0 and side2 <= 0 and side3 <= 0 and side4 >= 0):
         rect2 = 0
 
-    # check rectangle1
+    # check if the point lies inside the rectangle1
     (x1, y1) = (95,0)
     (x2, y2) = (155,0)
     (x3, y3) = (155, 105)
@@ -82,6 +82,7 @@ def obstacle(y, x):
         return True
     return False
 
+# Defining the Action Set
 def west(y_current, x_current):
     if(boundary(y_current, x_current - 1) and obstacle(y_current, x_current - 1) == False):
         return True
@@ -122,9 +123,9 @@ def northwest(y_current, x_current):
         return True
     return False
 
-# dijkstra algorithm
+# dijkstra's algorithm
 def dijkstra():
-    # create hashmap to store distances
+    # create a hashmap to store distances
     hash_map = {}
     visited = {}
     path = {}
@@ -134,23 +135,22 @@ def dijkstra():
             path[(y, x)] = -1
             visited[(y, x)] = False
         
-    # create queue, push the source and mark distance from source to source as zero
+    # create queue, push the source and mark the initial distance as zero
     explored = []
     queue = []
     heappush(queue, (0, start))
     hash_map[start] = 0
 
-    # run dijkstra algorithm and find shortest path
     while(len(queue) > 0):
         _, node = heappop(queue)
         visited[node] = True
         explored.append(node)
 
-        # if goal node then exit
+        # if already at the goal node, exit
         if(node[0] == goal[0] and node[1] == goal[1]):
             break
     
-        # go through each edge of current node
+        # check all possible movements for the current node
         if(west(node[0], node[1]) and visited[(node[0], node[1] - 1)] == False and (hash_map[(node[0], node[1] - 1)] > hash_map[node] + 1)):
             hash_map[(node[0], node[1] - 1)] = hash_map[node] + 1
             path[(node[0], node[1] - 1)] = node
@@ -191,7 +191,7 @@ def dijkstra():
             path[(node[0] - 1, node[1] - 1)] = node
             heappush(queue, (hash_map[(node[0] - 1, node[1] - 1)], (node[0] - 1, node[1] - 1)))
     
-    # return if no optimal path
+    # return if no optimal path was found
     if(hash_map[goal] == float('inf')):
         return (explored, [], hash_map[goal])
     
@@ -206,7 +206,7 @@ def dijkstra():
     return (explored, back_track, hash_map[goal])
 
 
-# animate path
+# animate node exploration and backtracking
 def animate( explored, back_track, path):
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     out = cv2.VideoWriter(str(path), fourcc, 20.0, (x_field, y_field))
@@ -214,7 +214,7 @@ def animate( explored, back_track, path):
     count = 0
     for state in explored:
         field[int(y_field - state[0]), int(state[1] - 1)] = (255, 0, 0)
-        if(count%99 == 0):
+        if(count%100 == 0):
             out.write(field)
         count = count + 1
 
@@ -224,7 +224,7 @@ def animate( explored, back_track, path):
             if(field[int(y_field - y), int(x - 1), 0] == 0 and field[int(y_field - y), int(x - 1), 1] == 0 and field[int(y_field - y), int(x - 1), 2] == 0):
                 if(boundary(y, x) and obstacle(y, x) == False):
                     field[int(y_field - y), int(x - 1)] = (154, 250, 0)
-                    if(count%99 == 0):
+                    if(count%100 == 0):
                         out.write(field)
                     count = count + 1
         
@@ -245,15 +245,12 @@ if(boundary(start[0], start[1])):
 			if(obstacle(goal[0], goal[1]) == False):
 				(explored, back_track, optimal) = dijkstra()
 				animate(explored, back_track, "./dijkstra.avi")
-				if(optimal == float('inf')):
-					print("\nNo optimal path found.")
-				else:
-					print("\nOptimal distance is " + str(optimal))
+				print("\nOptimal distance is " + str(optimal))
 			else:
-				print("The entered goal node is an obstacle ")
+				print("The goal coordinates you entered lie inside an obstacle")
 		else:
-			print("The entered initial node is an obstacle ")
+			print("The initial coordinates you entered lie inside an obstacle")
 	else:
-		print("The entered goal node outside the map ")
+		print("The goal coordinates you entered are outside the map")
 else:
-	print("The entered initial node is outside the map")
+	print("The initial coordinates you entered are outside the map")
