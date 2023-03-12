@@ -1,8 +1,5 @@
 # ENPM661 PLANNING FOR AUTONOMOUS ROBOTS
 
-### Author
-Omkar Chittar
-
 ## **File Tree**
 
 ```
@@ -20,6 +17,8 @@ In this project, the Dijkstra path planning algorithm was used on a point robot 
     Hence, the allowed x-coordinates lie between 6 and 594
            and the allowed y-coordinates lie between 6 and 244
 
+<br>
+
 ## **Installation and Running**
 
 1. Download and extract the files.
@@ -30,14 +29,18 @@ In this project, the Dijkstra path planning algorithm was used on a point robot 
 **The terminal**: The calculated optimal distance between the goal point and the initial point. <br>
 
 ### Results
-The realtime node exploration along with optimal path are shown in the 'dijkstra.avi' video.
-Blue: Explored | Green: Unexplored | Red: Optimal Path
-The inputs considered being (100, 130) and (200, 6).
-The Optimal distance for these inputs is 183.57979999999972
+The realtime node exploration along with optimal path are shown in the 'dijkstra.avi' video.<br>
+Blue: Explored | Green: Unexplored | Red: Optimal Path <br>
+The inputs considered being (100, 130) and (200, 6). <br>
+The Optimal distance for these inputs is 183.57979999999972 <br>
+<br>
 **The gif below shows the animation**
+<br>
+dijkstra.gif
+<br>
 
-
-
+### Author
+Omkar Chittar
 
 
 
