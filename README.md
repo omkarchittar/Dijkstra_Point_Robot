@@ -25,14 +25,17 @@ In this project, the Dijkstra path planning algorithm was used on a point robot 
 1. Download and extract the files.
 
 2. Run the code main.py using the following command in your terminal
-    ***main.py***
-**pop-up window**: Animation for the optimal path taken to reach the desired goal point.
-**The terminal**: The calculated optimal distance between the goal point and the initial point.
+    ***main.py*** <br>
+**pop-up window**: Animation for the optimal path taken to reach the desired goal point. <br>
+**The terminal**: The calculated optimal distance between the goal point and the initial point. <br>
 
 ### Results
 The realtime node exploration along with optimal path are shown in the 'dijkstra.avi' video.
-The inputs considered being (6, 6) and (594, 244).
-The Optimal distance for these inputs is 693.0233999999989
+Blue: Explored | Green: Unexplored | Red: Optimal Path
+The inputs considered being (100, 130) and (200, 6).
+The Optimal distance for these inputs is 183.57979999999972
+**The gif below shows the animation**
+
 
 
 
